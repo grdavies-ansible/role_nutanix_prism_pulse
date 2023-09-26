@@ -1,14 +1,14 @@
 ---
 # defaults file for nutanix_role_prism_pulse
-validate_certs: false
-nutanix_debug: false
-nutanix_pulse_username: admin
-nutanix_pulse_port: 9440
-nutanix_pulse_status: true
-nutanix_pulse_default_nutanix_email: nos-asups@nutanix.com
-nutanix_pulse_enable_default_nutanix_email: false
-nutanix_pulse_email_contact_list: []
-nutanix_pulse_identification_info_scrubbing_level: "AUTO"
-nutanix_pulse_is_pulse_prompt_needed: false
-nutanix_pulse_nos_version: null
-nutanix_pulse_remind_later: false
+role_nutanix_prism_pulse_validate_certs: false
+role_nutanix_prism_pulse_debug: false
+role_nutanix_prism_pulse_username: admin
+role_nutanix_prism_pulse_port: 9440
+role_nutanix_prism_pulse_status: true
+role_nutanix_prism_pulse_default_nutanix_email: nos-asups@nutanix.com
+role_nutanix_prism_pulse_enable_email: false
+role_nutanix_prism_pulse_email_contact_list: []
+role_nutanix_prism_pulse_scrubbing_level: "AUTO"
+role_nutanix_prism_pulse_prompt_needed: false
+role_nutanix_prism_pulse_nos_version: null
+role_nutanix_prism_pulse_remind_later: false

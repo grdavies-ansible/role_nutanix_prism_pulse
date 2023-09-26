@@ -4,7 +4,7 @@
   roles:
     - role: ../..
   vars:
-    nutanix_pulse_host: 10.38.185.37
-    nutanix_pulse_username: admin
-    nutanix_pulse_password: nx2Tech165!
-    nutanix_pulse_status: True
+    role_nutanix_prism_pulse_host: 10.38.11.199
+    role_nutanix_prism_pulse_username: admin
+    role_nutanix_prism_pulse_password: nx2Tech682!
+    role_nutanix_prism_pulse_status: true

@@ -1,46 +1,45 @@
 ---
 # tasks file for nutanix_role_prism_pulse
-- name: Configure pulse
-  block:
-    - name: Generate authorization string for "{{ nutanix_pulse_host }}"
-      set_fact:
-        nutanix_pulse_auth_string: "{{ nutanix_pulse_username }}:{{ nutanix_pulse_password }}"
-      no_log: true
+- name: Setup connection to Nutanix API
+  ansible.builtin.include_role:
+    name: grdavies.role_nutanix_prism_api
+  vars:
+    role_nutanix_prism_api_host: "{{ role_nutanix_prism_pulse_host }}"
+    role_nutanix_prism_api_username: "{{ role_nutanix_prism_pulse_username }}"
+    role_nutanix_prism_api_password: "{{ role_nutanix_prism_pulse_password }}"
+    role_nutanix_prism_api_port: "{{ role_nutanix_prism_pulse_port }}"
+    role_nutanix_prism_api_validate_certs: "{{ role_nutanix_prism_pulse_validate_certs }}"
+    role_nutanix_prism_api_debug: "{{ role_nutanix_prism_pulse_debug }}"
 
-    - name: Generate authorization header for "{{ nutanix_pulse_host }}"
-      set_fact:
-        nutanix_pulse_auth_api: "Basic {{ nutanix_pulse_auth_string | b64encode(encoding='ascii') }}"
-      no_log: true
+- name: Configure Pulse on "{{ role_nutanix_prism_pulse_host }}"
+  uri:
+    url: "https://{{ role_nutanix_prism_api_url_base }}/PrismGateway/services/rest/v1/pulse"
+    method: PUT
+    validate_certs: "{{ role_nutanix_prism_pulse_validate_certs }}"
+    body_format: json
+    body:
+      defaultNutanixEmail: "{{ role_nutanix_prism_pulse_default_nutanix_email }}"
+      emailContactList: "{{ role_nutanix_prism_pulse_email_contact_list }}"
+      enable: "{{ role_nutanix_prism_pulse_status }}"
+      enableDefaultNutanixEmail: "{{ role_nutanix_prism_pulse_enable_email }}"
+      identificationInfoScrubbingLevel: "{{ role_nutanix_prism_pulse_scrubbing_level }}"
+      isPulsePromptNeeded: "{{ role_nutanix_prism_pulse_prompt_needed }}"
+      nosVersion: "{{ role_nutanix_prism_pulse_nos_version }}"
+      remindLater: "{{ role_nutanix_prism_pulse_remind_later }}"
+    headers:
+      Authorization: "{{ role_nutanix_prism_api_auth_string_b64 }}"
+    status_code: 200
+    return_content: true
+  register: role_nutanix_prism_pulse_configure
+  ignore_errors: false
 
-    - name: Configure Pulse on "{{ nutanix_pulse_host }}"
-      uri:
-        url: "https://{{ nutanix_pulse_host }}:{{ nutanix_pulse_port }}/PrismGateway/services/rest/v1/pulse"
-        method: PUT
-        validate_certs: "{{ validate_certs }}"
-        body_format: json
-        body:
-          defaultNutanixEmail: "{{ nutanix_pulse_default_nutanix_email }}"
-          emailContactList: "{{ nutanix_pulse_email_contact_list }}"
-          enable: "{{ nutanix_pulse_status }}"
-          enableDefaultNutanixEmail: "{{ nutanix_pulse_enable_default_nutanix_email }}"
-          identificationInfoScrubbingLevel: "{{ nutanix_pulse_identification_info_scrubbing_level }}"
-          isPulsePromptNeeded: "{{ nutanix_pulse_is_pulse_prompt_needed }}"
-          nosVersion: "{{ nutanix_pulse_nos_version }}"
-          remindLater: "{{ nutanix_pulse_remind_later }}"
-        headers:
-          Authorization: "{{ nutanix_pulse_auth_api }}"
-        status_code: 200
-        return_content: true
-      register: nutanix_pulse_configure
-      ignore_errors: false
+- name: Debug Var role_nutanix_prism_pulse_configure
+  ansible.builtin.debug:
+    var: role_nutanix_prism_pulse_configure
+  when: role_nutanix_prism_pulse_debug
 
-    - name: Debug Var nutanix_pulse_configure
-      ansible.builtin.debug:
-        var: nutanix_pulse_configure
-      when: nutanix_debug
-
-    - name: Failed to configure Pulse
-      ansible.builtin.fail:
-        msg: "Pulse configuration failed."
-      when:
-        - nutanix_prism_eula_accept_eula.failed
+- name: Failed to configure Pulse
+  ansible.builtin.fail:
+    msg: "Pulse configuration failed."
+  when:
+    - role_nutanix_prism_pulse_configure.failed
