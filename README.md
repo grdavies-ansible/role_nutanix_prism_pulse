@@ -8,10 +8,10 @@ This Ansible role downloads and deploys Nutanix Prism Central.
 | Variable                                     | Required | Default | Choices                   | Comments                                                                                               |
 |----------------------------------------------|----------|---------|---------------------------|--------------------------------------------------------------------------------------------------------|
 | role_nutanix_prism_pulse_host                | yes      |         |                           | The IP address or FQDN for the Prism (Element or Central) where you want to configure pulse.           |
-| role_nutanix_prism_pulse_username            | no       | "admin" |                           | A valid username with appropriate rights to access the Nutanix API. where you want to configure pulse. |
-| role_nutanix_prism_pulse_password            | yes      |         |                           | A valid password for the supplied username.  where you want to configure pulse.                        |
-| role_nutanix_prism_pulse_port                | no       | 9440    |                           | The Prism TCP port  where you want to configure pulse.                                                 |
-| role_nutanix_prism_pulse_validate_certs      | no       | false   | true / false              | Whether to check if Prism UI certificates are valid.                                                   |
+| role_nutanix_prism_pulse_host_username       | no       | "admin" |                           | A valid username with appropriate rights to access the Nutanix API. where you want to configure pulse. |
+| role_nutanix_prism_pulse_host_password       | yes      |         |                           | A valid password for the supplied username.  where you want to configure pulse.                        |
+| role_nutanix_prism_pulse_host_port           | no       | 9440    |                           | The Prism TCP port  where you want to configure pulse.                                                 |
+| role_nutanix_prism_pulse_host_validate_certs | no       | false   | true / false              | Whether to check if Prism UI certificates are valid.                                                   |
 | role_nutanix_prism_pulse_debug               | no       | false   | true / false              | Whether to output variable contents for debugging purposes.                                            |
 | role_nutanix_prism_pulse_enable              | no       | true    | true / false              | True enables pulse. False disables pulse.                                                              |
 | role_nutanix_prism_pulse_enable_email        | no       | false   | true / false              |                                                                                                        |

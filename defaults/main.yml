@@ -1,9 +1,9 @@
 ---
 # defaults file for nutanix_role_prism_pulse
-role_nutanix_prism_pulse_validate_certs: false
+role_nutanix_prism_pulse_host_validate_certs: false
 role_nutanix_prism_pulse_debug: false
-role_nutanix_prism_pulse_username: admin
-role_nutanix_prism_pulse_port: 9440
+role_nutanix_prism_pulse_host_username: admin
+role_nutanix_prism_pulse_host_port: 9440
 role_nutanix_prism_pulse_status: true
 role_nutanix_prism_pulse_default_nutanix_email: nos-asups@nutanix.com
 role_nutanix_prism_pulse_enable_email: false

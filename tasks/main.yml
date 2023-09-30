@@ -5,17 +5,17 @@
     name: grdavies.role_nutanix_prism_api
   vars:
     role_nutanix_prism_api_host: "{{ role_nutanix_prism_pulse_host }}"
-    role_nutanix_prism_api_username: "{{ role_nutanix_prism_pulse_username }}"
-    role_nutanix_prism_api_password: "{{ role_nutanix_prism_pulse_password }}"
-    role_nutanix_prism_api_port: "{{ role_nutanix_prism_pulse_port }}"
-    role_nutanix_prism_api_validate_certs: "{{ role_nutanix_prism_pulse_validate_certs }}"
+    role_nutanix_prism_api_host_username: "{{ role_nutanix_prism_pulse_host_username }}"
+    role_nutanix_prism_api_host_password: "{{ role_nutanix_prism_pulse_host_password }}"
+    role_nutanix_prism_api_host_port: "{{ role_nutanix_prism_pulse_host_port }}"
+    role_nutanix_prism_api_host_validate_certs: "{{ role_nutanix_prism_pulse_host_validate_certs }}"
     role_nutanix_prism_api_debug: "{{ role_nutanix_prism_pulse_debug }}"
 
 - name: Configure Pulse on "{{ role_nutanix_prism_pulse_host }}"
   uri:
     url: "https://{{ role_nutanix_prism_api_url_base }}/PrismGateway/services/rest/v1/pulse"
     method: PUT
-    validate_certs: "{{ role_nutanix_prism_pulse_validate_certs }}"
+    validate_certs: "{{ role_nutanix_prism_pulse_host_validate_certs }}"
     body_format: json
     body:
       defaultNutanixEmail: "{{ role_nutanix_prism_pulse_default_nutanix_email }}"
